@@ -46,3 +46,22 @@ def vendor_detail(request, vendor_id):
     elif request.method == 'DELETE':
         vendor.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# views.py
+
+@api_view(['GET'])
+def vendor_performance(request, vendor_id):
+    try:
+        vendor = Vendor.objects.get(pk=vendor_id)
+    except Vendor.DoesNotExist:
+        return Response({"error": "Vendor not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    performance_data = {
+        "on_time_delivery_rate": vendor.on_time_delivery_rate,
+        "quality_rating_avg": vendor.quality_rating_avg,
+        "average_response_time": vendor.average_response_time,
+        "fulfillment_rate": vendor.fulfillment_rate,
+    }
+
+    return Response(performance_data)
