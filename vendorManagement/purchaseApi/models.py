@@ -1,5 +1,5 @@
 from django.db import models
-from vendorManagement.vendorApi.models import Vendor
+from vendorApi.models import Vendor
 
 # Create your models here.
 
