@@ -36,7 +36,7 @@ class PurchaseOrder(models.Model):
         else:
             average_response_time = timedelta()
 
-        # Update the vendor's average_response_time field (adjust this based on your Vendor model)
+        # Update the vendor's average_response_time field
         self.vendor.average_response_time = average_response_time.total_seconds()
         self.vendor.save()
 
