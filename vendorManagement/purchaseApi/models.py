@@ -15,7 +15,8 @@ class PurchaseOrder(models.Model):
     status = models.CharField(max_length=20)
     quality_rating = models.FloatField(null=True, blank=True)
     issue_date = models.DateTimeField()
-    acknowledgment_date = models.DateTimeField(null=True, blank=True, default=None)
+    acknowledgment_date = models.DateTimeField(
+        null=True, blank=True, default=None)
 
     def recalculate_average_response_time(self):
         # Get all acknowledged purchase orders for the same vendor
@@ -32,7 +33,8 @@ class PurchaseOrder(models.Model):
 
         # Calculate the average response time
         if acknowledged_orders.exists():
-            average_response_time = total_response_time / len(acknowledged_orders)
+            average_response_time = total_response_time / \
+                len(acknowledged_orders)
         else:
             average_response_time = timedelta()
 
