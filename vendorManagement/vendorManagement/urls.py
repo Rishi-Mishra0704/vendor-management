@@ -5,6 +5,7 @@ from django.urls import path, include
 api_patterns = [
     path('', include('vendorApi.urls')),
     path('', include('purchaseApi.urls')),
+    path('', include('historyApi.urls')),
 ]
 
 urlpatterns = [
