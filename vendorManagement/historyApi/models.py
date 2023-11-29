@@ -1,7 +1,4 @@
-from datetime import timedelta
 from django.db import models
-from django.db.models import Count, Avg
-from django.utils import timezone
 from vendorApi.models import Vendor
 
 

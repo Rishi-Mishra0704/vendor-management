@@ -1,21 +1,34 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
+from django.db.models import Avg, F
 from .models import HistoricalPerformance
-from .serializer import HistoricalPerformanceSerializer
 from vendorApi.models import Vendor
+
 
 @api_view(['GET'])
 def vendor_performance(request, vendor_id):
-    try:
-        vendor = Vendor.objects.get(pk=vendor_id)
-    except Vendor.DoesNotExist:
-        return Response({"error": "Vendor not found"}, status=status.HTTP_404_NOT_FOUND)
+    vendor = get_object_or_404(Vendor, pk=vendor_id)
 
-    performance_data = HistoricalPerformance.objects.filter(vendor=vendor).last()
+    vendor.update_performance_metrics()
 
-    if not performance_data:
-        return Response({"error": "Performance data not available for this vendor"}, status=status.HTTP_404_NOT_FOUND)
+    performances = HistoricalPerformance.objects.filter(vendor=vendor)
 
-    serializer = HistoricalPerformanceSerializer(performance_data)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    if performances.count() > 0:
+        on_time_delivery_rate = performances.aggregate(Avg('on_time_delivery_rate'))[
+            'on_time_delivery_rate__avg']
+        quality_rating_avg = performances.aggregate(Avg('quality_rating_avg'))[
+            'quality_rating_avg__avg']
+        average_response_time = performances.aggregate(Avg('average_response_time'))[
+            'average_response_time__avg']
+        fulfillment_rate = performances.aggregate(Avg('fulfillment_rate'))[
+            'fulfillment_rate__avg']
+    else:
+        on_time_delivery_rate = quality_rating_avg = average_response_time = fulfillment_rate = None
+
+    return Response({
+        'on_time_delivery_rate': on_time_delivery_rate,
+        'quality_rating_avg': quality_rating_avg,
+        'average_response_time': average_response_time,
+        'fulfillment_rate': fulfillment_rate,
+    })
