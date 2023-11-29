@@ -48,17 +48,3 @@ def purchase_order_detail(request, po_id):
         purchaseOrder.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-@api_view(['POST'])
-def acknowledge_purchase_order(request, po_id):
-    purchase_order = get_object_or_404(PurchaseOrder, pk=po_id)
-
-    if request.method == 'POST':
-        purchase_order.acknowledgment_date = datetime.now()
-        purchase_order.save()
-        purchase_order.recalculate_average_response_time()
-
-        serializer = PurchaseOrderSerializer(purchase_order)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    return Response({'error': 'Invalid request method.'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
