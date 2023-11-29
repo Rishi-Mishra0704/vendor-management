@@ -27,6 +27,7 @@ def vendor_performance(request, vendor_id):
         on_time_delivery_rate = quality_rating_avg = average_response_time = fulfillment_rate = None
 
     return Response({
+        'vendor': vendor.id,
         'on_time_delivery_rate': on_time_delivery_rate,
         'quality_rating_avg': quality_rating_avg,
         'average_response_time': average_response_time,
