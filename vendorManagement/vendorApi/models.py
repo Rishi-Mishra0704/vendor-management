@@ -14,7 +14,8 @@ class Vendor(models.Model):
 
     def update_on_time_delivery_rate(self):
         completed_pos = self.purchaseorder_set.filter(status='completed')
-        on_time_delivery_pos = completed_pos.filter(delivery_date__lte=models.F('delivery_date'))
+        on_time_delivery_pos = completed_pos.filter(
+            delivery_date__lte=models.F('delivery_date'))
         total_completed_pos = completed_pos.count()
         if total_completed_pos > 0:
             self.on_time_delivery_rate = on_time_delivery_pos.count() / total_completed_pos
@@ -22,26 +23,32 @@ class Vendor(models.Model):
             self.on_time_delivery_rate = None
 
     def update_quality_rating_avg(self):
-        completed_pos = self.purchaseorder_set.filter(status='completed', quality_rating__isnull=False)
+        completed_pos = self.purchaseorder_set.filter(
+            status='completed', quality_rating__isnull=False)
         total_completed_pos = completed_pos.count()
         if total_completed_pos > 0:
-            self.quality_rating_avg = completed_pos.aggregate(models.Avg('quality_rating'))['quality_rating__avg']
+            self.quality_rating_avg = completed_pos.aggregate(
+                models.Avg('quality_rating'))['quality_rating__avg']
         else:
             self.quality_rating_avg = None
 
     def update_average_response_time(self):
-        acknowledged_pos = self.purchaseorder_set.filter(acknowledgment_date__isnull=False)
+        acknowledged_pos = self.purchaseorder_set.filter(
+            acknowledgment_date__isnull=False)
         total_acknowledged_pos = acknowledged_pos.count()
         if total_acknowledged_pos > 0:
-            response_times = [(po.acknowledgment_date - po.issue_date).total_seconds() for po in acknowledged_pos if po.issue_date]
-            self.average_response_time = sum(response_times) / total_acknowledged_pos
+            response_times = [(po.acknowledgment_date - po.issue_date).total_seconds()
+                              for po in acknowledged_pos if po.issue_date and po.acknowledgment_date]
+            self.average_response_time = sum(
+                response_times) / total_acknowledged_pos
         else:
             self.average_response_time = None
 
     def update_fulfillment_rate(self):
         total_pos = self.purchaseorder_set.count()
         if total_pos > 0:
-            successful_pos = self.purchaseorder_set.filter(status='completed', acknowledgment_date__isnull=False)
+            successful_pos = self.purchaseorder_set.filter(
+                status='completed', acknowledgment_date__isnull=False)
             self.fulfillment_rate = successful_pos.count() / total_pos
         else:
             self.fulfillment_rate = None
@@ -53,6 +60,8 @@ class Vendor(models.Model):
         self.update_quality_rating_avg()
         self.update_average_response_time()
         self.update_fulfillment_rate()
+
+        self.save()
         HistoricalPerformance.objects.create(
             vendor=self,
             on_time_delivery_rate=self.on_time_delivery_rate,
