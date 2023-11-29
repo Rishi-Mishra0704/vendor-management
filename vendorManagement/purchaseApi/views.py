@@ -48,3 +48,18 @@ def purchase_order_detail(request, po_id):
         purchaseOrder.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+
+@api_view(['POST'])
+def acknowledge_purchase_order(request, po_id):
+    purchase_order = get_object_or_404(PurchaseOrder, pk=po_id)
+
+    # Acknowledge the purchase order
+    purchase_order.acknowledgment_date = datetime.now()
+    purchase_order.save()
+
+    # Update the average_response_time for the associated vendor
+    vendor = purchase_order.vendor
+    vendor.update_average_response_time()
+
+    return Response({'message': 'Purchase order acknowledged successfully.'}, status=status.HTTP_200_OK)
