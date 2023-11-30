@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import api_view
 from rest_framework import status
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
 
 
 from .models import Vendor
@@ -12,8 +10,6 @@ from .serializer import VendorSerializer
 
 
 @api_view(['GET'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def vendors(request):
     vendors = Vendor.objects.all()
     serializer = VendorSerializer(vendors, many=True)
@@ -21,8 +17,6 @@ def vendors(request):
 
 
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def vendor_create(request):
     serializer = VendorSerializer(data=request.data)
     if serializer.is_valid():
@@ -33,8 +27,6 @@ def vendor_create(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def vendor_detail(request, vendor_id):
     try:
         vendor = Vendor.objects.get(pk=vendor_id)
