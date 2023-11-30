@@ -42,4 +42,3 @@ class VendorPerformanceViewTestCase(TestCase):
         self.assertIn('average_response_time', response.data)
         self.assertIn('fulfillment_rate', response.data)
 
-    # Add more tests as needed, such as testing with different data scenarios
