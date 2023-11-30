@@ -7,20 +7,22 @@ class Vendor(models.Model):
     contact_details = models.TextField()
     address = models.TextField()
     vendor_code = models.CharField(max_length=50, unique=True)
-    on_time_delivery_rate = models.FloatField()
-    quality_rating_avg = models.FloatField()
-    average_response_time = models.FloatField()
-    fulfillment_rate = models.FloatField()
+    on_time_delivery_rate = models.FloatField(default=0.0)
+    quality_rating_avg = models.FloatField(default=0.0)
+    average_response_time = models.FloatField(default=0.0)
+    fulfillment_rate = models.FloatField(default=0.0)
 
     def update_on_time_delivery_rate(self):
         completed_pos = self.purchaseorder_set.filter(status='completed')
         on_time_delivery_pos = completed_pos.filter(
-            delivery_date__lte=models.F('delivery_date'))
+        delivery_date__lte=models.F('delivery_date'))
         total_completed_pos = completed_pos.count()
+
         if total_completed_pos > 0:
             self.on_time_delivery_rate = on_time_delivery_pos.count() / total_completed_pos
         else:
-            self.on_time_delivery_rate = None
+            self.on_time_delivery_rate = 0.0
+
 
     def update_quality_rating_avg(self):
         completed_pos = self.purchaseorder_set.filter(
@@ -30,7 +32,7 @@ class Vendor(models.Model):
             self.quality_rating_avg = completed_pos.aggregate(
                 models.Avg('quality_rating'))['quality_rating__avg']
         else:
-            self.quality_rating_avg = None
+            self.quality_rating_avg = 0.0
 
     def update_average_response_time(self):
         acknowledged_pos = self.purchaseorder_set.filter(
@@ -42,7 +44,7 @@ class Vendor(models.Model):
             self.average_response_time = sum(
                 response_times) / total_acknowledged_pos
         else:
-            self.average_response_time = None
+            self.average_response_time = 0.0
 
     def update_fulfillment_rate(self):
         total_pos = self.purchaseorder_set.count()
@@ -51,7 +53,7 @@ class Vendor(models.Model):
                 status='completed', acknowledgment_date__isnull=False)
             self.fulfillment_rate = successful_pos.count() / total_pos
         else:
-            self.fulfillment_rate = None
+            self.fulfillment_rate = 0.0
 
     def update_performance_metrics(self):
         from historyApi.models import HistoricalPerformance
