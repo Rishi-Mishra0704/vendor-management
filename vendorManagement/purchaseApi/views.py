@@ -1,9 +1,10 @@
 from datetime import datetime
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,authentication_classes,permission_classes
 from rest_framework import status
-
+from rest_framework.authentication import TokenAuthentication,SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .models import PurchaseOrder
 from .serializer import PurchaseOrderSerializer
@@ -11,7 +12,8 @@ from .serializer import PurchaseOrderSerializer
 
 
 @api_view(['GET'])
-
+@authentication_classes([TokenAuthentication,SessionAuthentication])
+@permission_classes([IsAuthenticated])
 def purchase_orders(request):
     purchaseOrders = PurchaseOrder.objects.all()
     serializers = PurchaseOrderSerializer(purchaseOrders, many=True)
@@ -19,7 +21,8 @@ def purchase_orders(request):
 
 
 @api_view(['POST'])
-
+@authentication_classes([TokenAuthentication,SessionAuthentication])
+@permission_classes([IsAuthenticated])
 def purchase_order_create(request):
     serializer = PurchaseOrderSerializer(data=request.data)
     if serializer.is_valid():
@@ -30,7 +33,8 @@ def purchase_order_create(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-
+@authentication_classes([TokenAuthentication,SessionAuthentication])
+@permission_classes([IsAuthenticated])
 def purchase_order_detail(request, po_id):
     try:
         purchaseOrder = PurchaseOrder.objects.get(pk=po_id)
@@ -55,7 +59,8 @@ def purchase_order_detail(request, po_id):
 
 
 @api_view(['POST'])
-
+@authentication_classes([TokenAuthentication,SessionAuthentication])
+@permission_classes([IsAuthenticated])
 def acknowledge_purchase_order(request, po_id):
     purchase_order = get_object_or_404(PurchaseOrder, pk=po_id)
 
