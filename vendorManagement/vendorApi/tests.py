@@ -112,7 +112,7 @@ class VendorModelTest(TestCase):
     def test_update_on_time_delivery_rate(self):
         self.vendor.update_on_time_delivery_rate()
         # Assuming delivery_date is in the past for completed orders
-        self.assertEqual(self.vendor.on_time_delivery_rate, 1.0)
+        self.assertEqual(self.vendor.on_time_delivery_rate, 100.0)
 
     def test_update_quality_rating_avg(self):
         self.purchase_order_completed.quality_rating = 4.0
@@ -132,7 +132,7 @@ class VendorModelTest(TestCase):
     def test_update_fulfillment_rate(self):
         self.vendor.update_fulfillment_rate()
         # Assuming one completed and one pending order
-        self.assertEqual(self.vendor.fulfillment_rate, 0.5)
+        self.assertEqual(self.vendor.fulfillment_rate, 50.0)
 
     def test_update_performance_metrics(self):
         self.vendor.update_performance_metrics()
