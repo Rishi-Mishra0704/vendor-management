@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, transaction
 from django.db.models import Avg
 from django.utils import timezone
 # Create your models here.
@@ -22,7 +22,8 @@ class Vendor(models.Model):
 
         if total_completed_pos > 0:
             on_time_delivery_count = on_time_delivery_pos.count()
-            self.on_time_delivery_rate = (on_time_delivery_count / total_completed_pos) * 100
+            self.on_time_delivery_rate = (
+                on_time_delivery_count / total_completed_pos) * 100
         else:
             self.on_time_delivery_rate = 0.0
 
@@ -63,6 +64,7 @@ class Vendor(models.Model):
         else:
             self.fulfillment_rate = 0.0
 
+    @transaction.atomic()
     def update_performance_metrics(self):
         from historyApi.models import HistoricalPerformance
 
