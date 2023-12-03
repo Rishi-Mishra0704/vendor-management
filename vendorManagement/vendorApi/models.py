@@ -64,6 +64,24 @@ class Vendor(models.Model):
         else:
             self.fulfillment_rate = 0.0
 
+    def save(self, *args, **kwargs):
+        from historyApi.models import HistoricalPerformance
+        try:
+            # Create a historical performance record with a timestamp
+            historical_performance = HistoricalPerformance(
+                vendor=self,
+                on_time_delivery_rate=self.on_time_delivery_rate,
+                quality_rating_avg=self.quality_rating_avg,
+                average_response_time=self.average_response_time,
+                fulfillment_rate=self.fulfillment_rate,
+
+            )
+            historical_performance.save()
+            super().save(*args, **kwargs)
+
+        except Exception as e:
+            print(f"Error saving vendor: {e}")
+
     @transaction.atomic()
     def update_performance_metrics(self):
         from historyApi.models import HistoricalPerformance
