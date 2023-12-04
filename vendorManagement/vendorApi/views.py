@@ -15,6 +15,12 @@ from rest_framework.permissions import IsAuthenticated
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def vendors(request):
+    """
+    Checks if the user is authenticated and returns a list of vendors.
+
+    Fetches all vendors from the database and converts them to JSON.
+    Returns a JSON response with a list of all vendors.
+    """
     vendors = Vendor.objects.all()
     serializer = VendorSerializer(vendors, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
@@ -24,18 +30,37 @@ def vendors(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def vendor_create(request):
+    """
+    Checks if the user is authenticated and creates a new vendor.
+
+    Takes a JSON payload and creates a new vendor instance.
+    Returns the serialized vendor data in the response on successful creation.
+    """
+
     serializer = VendorSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
-        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def vendor_detail(request, vendor_id):
+    """
+    Checks if the user is authenticated and performs CRUD operations on a vendor.
+    Retrieve, update, or delete a vendor.
+
+    - GET: Retrieve details of a specific vendor.
+    - PUT: Update the details of a specific vendor.
+    - DELETE: Delete a specific vendor.
+
+    Returns the serialized vendor data in the response for GET and PUT requests.
+    Returns a 204 NO CONTENT response on successful DELETE.
+    Returns a 404 NOT FOUND response if the vendor does not exist.
+    """
     try:
         vendor = Vendor.objects.get(pk=vendor_id)
     except Vendor.DoesNotExist:
@@ -61,6 +86,15 @@ def vendor_detail(request, vendor_id):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def vendor_performance(request, vendor_id):
+    """
+    Checks if the user is authenticated and Retrieve performance metrics for a vendor.
+
+    - GET: Retrieve performance metrics such as on-time delivery rate, quality rating,
+    average response time, and fulfillment rate for a specific vendor.
+
+    Returns a JSON response with the performance metrics.
+    Returns a 404 NOT FOUND response if the vendor does not exist.
+    """
     try:
         vendor = Vendor.objects.get(pk=vendor_id)
     except Vendor.DoesNotExist:

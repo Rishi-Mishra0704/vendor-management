@@ -124,7 +124,6 @@ class VendorModelTest(TestCase):
 
     def test_update_on_time_delivery_rate(self):
         self.vendor.update_on_time_delivery_rate()
-        # Assuming delivery_date is in the past for completed orders
         self.assertEqual(self.vendor.on_time_delivery_rate, 100.0)
 
     def test_update_quality_rating_avg(self):
@@ -144,22 +143,16 @@ class VendorModelTest(TestCase):
 
     def test_update_fulfillment_rate(self):
         self.vendor.update_fulfillment_rate()
-        # Assuming one completed and one pending order
         self.assertEqual(self.vendor.fulfillment_rate, 50.0)
     
 
     def test_update_performance_metrics(self):
-        # Call the update_performance_metrics method
         self.vendor.update_performance_metrics()
 
-        # Refresh the vendor instance to get the latest data from the database
         self.vendor.refresh_from_db()
 
-        # Assert that the metrics have been updated
         self.assertEqual(self.vendor.on_time_delivery_rate, 100.0)
         self.assertEqual(self.vendor.quality_rating_avg, 4.0)
-        self.assertEqual(self.vendor.average_response_time, 0.0)  # Assuming there's no acknowledged purchase order
-        self.assertEqual(self.vendor.fulfillment_rate, 50.0)  # Assuming one completed order
-
-        # Add more assertions based on your specific logic and requirements
+        self.assertEqual(self.vendor.average_response_time, 0.0)
+        self.assertEqual(self.vendor.fulfillment_rate, 50.0) 
    
