@@ -17,7 +17,7 @@ from rest_framework.permissions import IsAuthenticated
 def purchase_orders(request):
     purchaseOrders = PurchaseOrder.objects.all()
     serializers = PurchaseOrderSerializer(purchaseOrders, many=True)
-    return Response(serializers.data)
+    return Response(serializers.data, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -27,9 +27,9 @@ def purchase_order_create(request):
     serializer = PurchaseOrderSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -43,24 +43,22 @@ def purchase_order_detail(request, po_id):
 
     if request.method == 'GET':
         serializer = PurchaseOrderSerializer(purchaseOrder)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == 'PUT':
         serializer = PurchaseOrderSerializer(purchaseOrder, data=request.data)
         if serializer.is_valid():
             serializer.save()
 
-            # Update the average_response_time for the associated vendor
             vendor = purchaseOrder.vendor
             vendor.update_average_response_time()
 
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         purchaseOrder.delete()
 
-        # Update the average_response_time for the associated vendor
         vendor = purchaseOrder.vendor
         vendor.update_average_response_time()
 
@@ -73,13 +71,11 @@ def purchase_order_detail(request, po_id):
 def acknowledge_purchase_order(request, po_id):
     purchase_order = get_object_or_404(PurchaseOrder, pk=po_id)
 
-    # Acknowledge the purchase order
     purchase_order.acknowledgment_date = datetime.now()
     purchase_order.save()
 
-    # Update the average_response_time for the associated vendor
     vendor = purchase_order.vendor
     vendor.update_average_response_time()
-    vendor.update_performance_metrics()  # Ensure all metrics are up-to-date
+    vendor.update_performance_metrics()
 
     return Response({'message': 'Purchase order acknowledged successfully.'}, status=status.HTTP_200_OK)
