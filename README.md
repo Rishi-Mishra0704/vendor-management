@@ -17,7 +17,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [Vendor-Management-System] <a name=="about-project"></a>
+# 📖 [Vendor-Management-System] <a name="about-project"></a>
 
 > This is a Vendor Management System built with Django and Django Rest Framework. It is a REST API that allows users to create, read, update and delete Vendors and their Purchase Orders. It also keeps track of the Historical Performance of the Vendors.
 
