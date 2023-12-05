@@ -94,11 +94,30 @@ DATABASES = {
 
 ### Install
 
-Install this project with:
-pip install -r requirements.txt
+1. Create a virtual environment and activate it:
+   - For Windows:
+     ```powershell
+     python -m venv env
+     & desired_folder/vendor-management/env/Scripts/Activate.ps1
+     ```
+
+   - For Linux and Mac:
+     ```bash
+     python -m venv env
+     source env/bin/activate
+     ```
+
+   Ensure that you have the necessary execution permissions on the activation script.
+
+2. Install the dependencies:
+   ```bash
+   pip install -r requirements.txt
+    ```
+3. Run the following commands to create the Models in database :
+```bash
 python manage.py makemigrations
 python manage.py migrate
-
+```
 ### Usage
 
 To run the project, execute the following command:
