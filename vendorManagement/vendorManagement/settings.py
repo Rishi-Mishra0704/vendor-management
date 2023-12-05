@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'vendorManagement.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vendors',
-        'USER': 'rishi',
-        'PASSWORD': '1111',
+        'NAME': 'your-db-name',
+        'USER': 'your-username',
+        'PASSWORD': 'your-password',
         'HOST': 'localhost',
         'PORT': '5432',
     }
