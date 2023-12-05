@@ -69,7 +69,7 @@ class PurchaseViewsTestCase(TestCase):
             'vendor': self.vendor.id,
         }
         response = self.client.put(url, data=updated_data)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         updated_po = PurchaseOrder.objects.get(pk=self.po.id)
         self.assertEqual(updated_po.quantity, 5)
         self.assertIsNotNone(updated_po.acknowledgment_date)
