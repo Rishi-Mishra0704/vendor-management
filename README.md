@@ -151,12 +151,23 @@ To run the project, execute the following command:
 To run the tests, execute the following command:
 
 To run all the tests:
-> python manage.py test
+```bash
+ python manage.py test
+ ```
 
 To run a specific test:
-> python manage.py test vendorApi
-> python manage.py test PurchaseApi
-> python manage.py test historyApi
+```bash
+ python manage.py test vendorApi
+ ```
+ 
+```bash
+    python manage.py test PurchaseApi
+ ```
+
+```bash
+    python manage.py test historyApi
+```
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
