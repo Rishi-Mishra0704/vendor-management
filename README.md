@@ -34,12 +34,16 @@
     <li><a href="#">Django</a></li>
     <li><a href="#">Django Rest Framework</a></li>
   </ul>
-  <summary>Database</summary>
-    <ul>
-        <li><a href="#">PostgreSQL</a></li>
-        <li><a href="#">Psycopg2</a></li>
-    </ul>
 </details>
+
+<details>
+  <summary>Database</summary>
+  <ul>
+    <li><a href="#">PostgreSQL</a></li>
+    <li><a href="#">Psycopg2</a></li>
+  </ul>
+</details>
+
 
 <!-- Features -->
 
