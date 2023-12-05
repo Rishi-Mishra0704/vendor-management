@@ -21,7 +21,6 @@
 
 > This is a Vendor Management System built with Django and Django Rest Framework. It is a REST API that allows users to create, read, update and delete Vendors and their Purchase Orders. It also keeps track of the Historical Performance of the Vendors.
 
-## <h1>🚀Video Demo</h1><a name="Video-Demo" href = "">Video Demo</a>
 
 
 ## 🛠 Built With <a name="built-with"></a>
@@ -105,6 +104,9 @@ python manage.py migrate
 To run the project, execute the following command:
 
 > python manage.py runserver
+
+Watch the video demo for more understanding the usage.
+## <h1>🚀Video Demo</h1><a name="Video-Demo" href = "">Video Demo</a>
 
 ### Testing
 To run the tests, execute the following command:
