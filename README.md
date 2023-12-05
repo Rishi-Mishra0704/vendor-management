@@ -143,7 +143,8 @@ python manage.py migrate
 
 To run the project, execute the following command:
 
-```bash 
+```bash
+cd desired-folder/vendor-management/vendorManagement
  python manage.py runserver
  ```
 
