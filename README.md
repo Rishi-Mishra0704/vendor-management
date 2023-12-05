@@ -131,7 +131,7 @@ Now your Django project is configured to use the PostgreSQL database you've set 
 
 2. Install the dependencies:
 ```bash
-   pip install -r requirements.txt
+   pip install -r requirement.txt
  ```
  
 3. Run the following commands to create the Models in database :
