@@ -1,0 +1,29 @@
+Vendor data:
+ {
+    "name": "Example Vendor 5",
+    "contact_details": "124-456-7890",
+    "address": "113 Main St, Cityville",
+    "vendor_code": "V005",
+    "on_time_delivery_rate": 2.0,
+    "quality_rating_avg": 5.0,
+    "average_response_time": 2.0,
+    "fulfillment_rate": 0.0
+}
+
+Purchase Order Data:
+{
+    "vendor":4,
+
+    "po_number": "PO004",
+    "order_date": "2023-12-01T14:57:44Z",
+    "delivery_date": "2023-12-02T06:00:00Z",
+    "items": {
+        "item1": "Item A",
+        "item2": "Item B"
+    },
+    "quantity": 6,
+    "status": "completed",
+    "quality_rating": 5.0,
+    "issue_date": "2023-12-01T14:58:25Z",
+    "acknowledgment_date": "2023-12-03T09:18:21.818358Z"
+}
