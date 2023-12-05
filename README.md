@@ -79,9 +79,10 @@ In order to run this project you need:
 Clone this repository to your desired folder:
 
 Example commands:
+```bash
 cd my-folder
-git clone git clone https://github.com/Rishi-Mishra0704/vendor-management
-
+git clone https://github.com/Rishi-Mishra0704/vendor-management
+```
 ### Database Setup
 
 1. **Create a PostgreSQL Database:**
