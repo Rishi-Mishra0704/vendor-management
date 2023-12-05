@@ -14,4 +14,4 @@ urlpatterns = [
     path('api/', include(api_patterns)),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
-]   
+]

@@ -144,7 +144,6 @@ class VendorModelTest(TestCase):
     def test_update_fulfillment_rate(self):
         self.vendor.update_fulfillment_rate()
         self.assertEqual(self.vendor.fulfillment_rate, 50.0)
-    
 
     def test_update_performance_metrics(self):
         self.vendor.update_performance_metrics()
@@ -154,5 +153,4 @@ class VendorModelTest(TestCase):
         self.assertEqual(self.vendor.on_time_delivery_rate, 100.0)
         self.assertEqual(self.vendor.quality_rating_avg, 4.0)
         self.assertEqual(self.vendor.average_response_time, 0.0)
-        self.assertEqual(self.vendor.fulfillment_rate, 50.0) 
-   
+        self.assertEqual(self.vendor.fulfillment_rate, 50.0)

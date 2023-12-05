@@ -3,7 +3,6 @@ from django.db.models import Avg
 from django.utils import timezone
 
 
-
 # Create your models here.
 
 
@@ -21,7 +20,7 @@ class Vendor(models.Model):
         - average_response_time: Average response time from acknowledgment to issue date.
         - fulfillment_rate: Percentage of successfully completed purchase orders.
         """
-    
+
     name = models.CharField(max_length=255)
     contact_details = models.TextField()
     address = models.TextField()
@@ -162,7 +161,6 @@ class Vendor(models.Model):
         except Exception as e:
             print(f"Error saving vendor: {e}")
 
-
     @transaction.atomic()
     def update_performance_metrics(self):
         """
@@ -180,7 +178,7 @@ class Vendor(models.Model):
         Result:
         - All performance metrics are updated, and changes are saved in a transaction.
         """
-         
+
         self.update_on_time_delivery_rate()
         self.update_quality_rating_avg()
         self.update_average_response_time()

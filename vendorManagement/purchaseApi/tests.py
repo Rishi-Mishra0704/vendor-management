@@ -35,10 +35,10 @@ class PurchaseViewsTestCase(TestCase):
         }
         self.po = PurchaseOrder.objects.create(**self.po_data)
 
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
+        self.user = User.objects.create_user(
+            username='testuser', password='testpassword')
         self.token = Token.objects.create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
-
 
     def test_purchase_orders_list(self):
         url = reverse('purchase_orders')
