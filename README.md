@@ -118,7 +118,7 @@ Now your Django project is configured to use the PostgreSQL database you've set 
    - For Windows:
      ```powershell
      python -m venv env
-     & desired_folder/vendor-management/env/Scripts/Activate.ps1
+     & desired_folder/env/Scripts/Activate.ps1
      ```
 
    - For Linux and Mac:
