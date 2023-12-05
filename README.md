@@ -129,9 +129,10 @@ Now your Django project is configured to use the PostgreSQL database you've set 
    Ensure that you have the necessary execution permissions on the activation script.
 
 2. Install the dependencies:
-   ```bash
+```bash
    pip install -r requirements.txt
-    ```
+ ```
+ 
 3. Run the following commands to create the Models in database :
 ```bash
 python manage.py makemigrations
@@ -141,7 +142,9 @@ python manage.py migrate
 
 To run the project, execute the following command:
 
-```` python manage.py runserver```
+```bash 
+ python manage.py runserver
+ ```
 
 <h1>Watch the video demo for more understanding the usage.</h1>
 
