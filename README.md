@@ -82,18 +82,33 @@ Example commands:
 cd my-folder
 git clone git clone https://github.com/Rishi-Mishra0704/vendor-management
 
-### Database setup
-Setup a PostgreSQL database and add the credentials to the settings.py file. At the database section, add the following code:
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'your-db-name',
-       'USER': 'your-username',
-       'PASSWORD': 'your-password',
-       'HOST': 'localhost',
-       'PORT': '5432',
-   }
-}
+### Database Setup
+
+1. **Create a PostgreSQL Database:**
+   - Set up a PostgreSQL database and make a note of the database name, username, and password.
+
+2. **Update `settings.py`:**
+   - Open the `settings.py` file in your Django project.
+
+3. **Add Database Configuration:**
+   - Locate the `DATABASES` section in `settings.py` and update it with the following code:
+
+     ```python
+     DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.postgresql',
+             'NAME': 'your-db-name',
+             'USER': 'your-username',
+             'PASSWORD': 'your-password',
+             'HOST': 'localhost',
+             'PORT': '5432',
+         }
+     }
+     ```
+
+   - Replace `'your-db-name'`, `'your-username'`, and `'your-password'` with your actual database credentials.
+
+Now your Django project is configured to use the PostgreSQL database you've set up.
 
 
 ### Install
