@@ -141,10 +141,11 @@ python manage.py migrate
 
 To run the project, execute the following command:
 
-> python manage.py runserver
+```` python manage.py runserver```
 
-Watch the video demo for more understanding the usage.
-## <h1>🚀Video Demo</h1><a name="Video-Demo" href = "">Video Demo</a>
+<h1>Watch the video demo for more understanding the usage.</h1>
+
+### 🚀Video Demo<a name="Video-Demo" href = "">Video Demo</a>
 
 ### Testing
 To run the tests, execute the following command:
