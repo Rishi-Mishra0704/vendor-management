@@ -161,11 +161,11 @@ To run a specific test:
  ```
  
 ```bash
-    python manage.py test PurchaseApi
+python manage.py test PurchaseApi
  ```
 
 ```bash
-    python manage.py test historyApi
+python manage.py test historyApi
 ```
 
 
